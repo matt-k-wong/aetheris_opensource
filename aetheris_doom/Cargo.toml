@@ -1,0 +1,27 @@
+[package]
+name = "aetheris_doom"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+aetheris = { path = "../aetheris" }
+env_logger = "0.10"
+log = "0.4"
+winit = "0.28"
+pollster = "0.3"
+anyhow = "1.0"
+glam = "0.24"
+serde_json = "1.0"
+rand = "0.10.0"
+
+[lib]
+name = "aetheris_doom"
+path = "src/lib.rs"
+
+[[bin]]
+name = "aetheris_doom"
+path = "src/main.rs"
+
+[features]
+default = []
+opl_music = ["aetheris/opl_music"]

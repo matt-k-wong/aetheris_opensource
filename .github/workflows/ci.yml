@@ -1,0 +1,63 @@
+name: Rust CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build_and_test:
+    name: Build and Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install macOS Dependencies (OpenGL, CoreAudio)
+      if: runner.os == 'macOS'
+      run: |
+        # Apple frameworks are natively available most of the time via Xcode runner
+        # but libsdl2 or equivalents might be needed if winit fails. Standard winit handles it well.
+
+    - name: Install Linux Dependencies (ALSA, X11, Wayland)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libasound2-dev pkg-config libx11-dev libwayland-dev libxkbcommon-dev
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        components: clippy, rustfmt
+
+    - name: Cache dependencies
+      uses: Swatinem/rust-cache@v2
+
+    - name: Check Formatting
+      run: cargo fmt --all -- --check
+      continue-on-error: true
+
+    - name: Run Clippy Linter
+      run: |
+        # In this first iteration of the open-source repo, we don't block on clippy since there are many warnings
+        cargo clippy --all-targets --all-features -- -D warnings
+      continue-on-error: true
+
+    - name: Build Core Framework
+      run: cargo build -p aetheris --release --all-features
+
+    - name: Build Doom Executable
+      run: cargo build -p aetheris_doom --release --all-features
+
+    - name: Run Core Tests
+      run: cargo test -p aetheris --all-features
+
+    - name: Run Doom Tests
+      run: cargo test -p aetheris_doom --all-features

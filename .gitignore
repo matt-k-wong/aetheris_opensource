@@ -1,0 +1,25 @@
+/target
+
+# Build artifacts
+build_*.txt
+doom_*.txt
+final_*.txt
+
+# Analysis documents (internal planning)
+ENGINE_EVOLUTION.md
+AI_TRAINING_PLATFORM.md
+CRITICAL_BUGS.md
+
+# Archives
+archives/
+.aider*
+*.lmp
+temp_*.png
+
+# Ignore commercial doom WADs but allow freedoom
+[dD][oO][oO][mM]*.wad
+[dD][oO][oO][mM]*.WAD
+PLUTONIA.WAD
+TNT.WAD
+.DS_Store
+telemetry.json

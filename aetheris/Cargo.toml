@@ -1,0 +1,43 @@
+[package]
+name = "aetheris"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+winit = "0.28"
+pixels = "0.13"
+glam = { version = "0.24", features = ["serde"] }
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.10"
+binrw = "0.13"
+wgpu = "0.16"
+pollster = "0.3"
+async-trait = "0.1"
+bytemuck = { version = "1.14", features = ["derive"] }
+cpal = "0.15"
+rodio = "0.17"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+image = "0.24"
+rand = "0.8"
+midly = "0.5"
+opl-emu = { version = "0.4.2", features = ["chip"], optional = true }
+parking_lot = "0.12.5"
+ringbuf = "0.3"
+rayon = "1.8"  # Data parallelism for AI/physics
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+web-sys = { version = "0.3", features = ["Window", "Document", "Element", "HtmlCanvasElement", "Response", "Request", "RequestInit", "RequestMode"] }
+js-sys = "0.3"
+console_log = "1.0"
+console_error_panic_hook = "0.1"
+
+[features]
+default = []
+opl_music = ["dep:opl-emu"]
