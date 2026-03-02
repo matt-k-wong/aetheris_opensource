@@ -21,15 +21,7 @@ To support commercial engine licensing, the project separates generic mathematic
 * **Details:** Safely firewalled in its own crate, this module implements the generic `aetheris::VisualBridge` trait to pipe sector geometry physically to the GPU. This isolates the advanced modern display technology from the open-source tree.
 * **Commercial Licensing:** To acquire an `aetheris_pro` license for use in commercial projects with high-performance hardware WGPU rendering, please contact [matt.k.wong@gmail.com](mailto:matt.k.wong@gmail.com) for pricing and terms.
 
----
 
-## 🧼 A True Clean-Room Recreation
-
-This engine is a 100% ground-up, clean-room recreation written from scratch in Rust. It aims for strict logic and physics parity with the original vanilla engines (*Doom v1.9*) through black-box observation and mathematical first principles. 
-
-Because no original copyrighted code was used (no GPL code from popular source ports), this framework is legally unencumbered and free to be used as a foundation for your own commercial projects under the MIT License.
-
----
 
 ## 🛠️ Building Games with Aetheris
 
